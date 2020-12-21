@@ -1,5 +1,3 @@
-import math
-from random import shuffle, seed
 from typing import *
 import sys
 
@@ -20,9 +18,9 @@ def entrada():
 
 def derecha(v):
     n = v.__len__()-1
-    d=[]
+    d = []
     act = -1
-    while n > 0:
+    while n >= 0:
         if v[n][1] > act:
             d.append(v[n])
             act = v[n][1]
@@ -37,7 +35,7 @@ def resolver(v, d):
     res = -1
     riz = -1
     rde = -1
-    rh = -1
+    rh = 0
     n = 0
 
     while n < v.__len__()-1:
@@ -58,7 +56,7 @@ def resolver(v, d):
                 rde = der[0]
         n += 1
 
-    if (v[rde][1] > v[riz][1]):
+    if v[rde][1] > v[riz][1]:
         n = res
         while n < v.__len__()-1:
             if v[n][1] > v[riz][1]:
@@ -66,7 +64,7 @@ def resolver(v, d):
                 n = v.__len__()-1
             n += 1
 
-    if (v[rde][1] < v[riz][1]):
+    if v[rde][1] < v[riz][1]:
         n = res
         while n > 0:
             if v[n][1] > v[rde][1]:
@@ -77,8 +75,10 @@ def resolver(v, d):
     return res, rh, riz, rde
 
 
-
 buildings = entrada()
-der = derecha(buildings)
-result, height, iz, de = resolver(buildings, der)
-print(iz, de, result, height)
+dere = derecha(buildings)
+result, height, iz, de = resolver(buildings, dere)
+if result == -1 or height == 0:
+    print("NO HAY SOLUCIÓN")
+else:
+    print(iz, de, result, height)
